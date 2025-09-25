@@ -1,15 +1,15 @@
-package src.com.hollowstring.airengine;
+package com.hollowstring.airengine;
 
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
-public class airengine {
+public class AirEngine {
     private long window;
     private int width, height;
     private String title;
 
-    public airengine(int w, int h, String t){
+    public AirEngine(int w, int h, String t){
         this.width = w;
         this.height = h;
         this.title = t;
@@ -31,12 +31,17 @@ public class airengine {
         GLFW.glfwMakeContextCurrent(window);
         GLFW.glfwShowWindow(window);
         // FIXME: Throws No Context Error
-        //GL11.glViewport(0, 0, width, height);
+        GLFW.createCapabilities();
+        GL11.glViewport(0, 0, width, height);
     }
 
     public void loopDefault(){
         GLFW.glfwSwapBuffers(window);
         GLFW.glfwPollEvents();
+    }
+
+    public boolean checkKey(long keyKey, long checkKey){
+        return GLFW.glfwGetKey(keyKey == checkKey);
     }
 
     public void close(){

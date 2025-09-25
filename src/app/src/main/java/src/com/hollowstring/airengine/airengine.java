@@ -2,33 +2,38 @@ package src.com.hollowstring.airengine;
 
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
-import org.lwjgl.opengles.*;
+import org.lwjgl.opengl.*;
 
 public class airengine {
-    public static long window;
+    private long window;
+    private int width, height;
+    private String title;
 
-    public static void init(){
+    public airengine(int w, int h, String t){
+        this.width = w;
+        this.height = h;
+        this.title = t;
         GLFW.glfwInit();
         GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
-        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLES32.GL_TRUE);
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
     }
 
-    public static void createWindow(int width, int height, String title){
-        window = GLFW.glfwCreateWindow(width, height, title, 0, 0);
-        GLFW.glfwMakeContextCurrent(window);
-        GLES32.glViewport(0, 0, width, height);
+    public void createWindow(){
+        this.window = GLFW.glfwCreateWindow(this.width, this.height, this.title, 0, 0);
+        GLFW.glfwMakeContextCurrent(this.window);
+        GL11.glViewport(0, 0, this.width, this.height);
     }
 
-    public static void loopDefault(){
-        GLFW.glfwSwapBuffers(window);
+    public void loopDefault(){
+        GLFW.glfwSwapBuffers(this.window);
         GLFW.glfwPollEvents();
     }
-    public static void close(){
-        GLFW.glfwWindowShouldClose(window);
+    public void close(){
+        GLFW.glfwWindowShouldClose(this.window);
         GLFW.glfwTerminate();
     }
 }

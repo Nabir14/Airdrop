@@ -22,16 +22,23 @@ public class airengine {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
     }
 
+    public static void getVersion(){
+        System.out.println("LWJGL Version: " + Version.getVersion());
+    }
+
     public void createWindow(){
-        this.window = GLFW.glfwCreateWindow(this.width, this.height, this.title, 0, 0);
-        GLFW.glfwMakeContextCurrent(this.window);
-        GL11.glViewport(0, 0, this.width, this.height);
+        window = GLFW.glfwCreateWindow(width, height, title, 0, 0);
+        GLFW.glfwMakeContextCurrent(window);
+        GLFW.glfwShowWindow(window);
+        // FIXME: Throws No Context Error
+        //GL11.glViewport(0, 0, width, height);
     }
 
     public void loopDefault(){
-        GLFW.glfwSwapBuffers(this.window);
+        GLFW.glfwSwapBuffers(window);
         GLFW.glfwPollEvents();
     }
+
     public void close(){
         GLFW.glfwWindowShouldClose(this.window);
         GLFW.glfwTerminate();

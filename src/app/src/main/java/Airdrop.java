@@ -1,3 +1,5 @@
+import org.lwjgl.glfw.*;
+
 import com.hollowstring.airengine.*;
 
 public class Airdrop {
@@ -6,8 +8,9 @@ public class Airdrop {
         engine.createWindow();
         boolean run = true;
         while(run){
-            engine.loopDefault();
-            if(engine.checkKey(GLFW_KEY_ESCAPE, GLFW_PRESS)){
+            engine.setClearColor(0.3f, 0.5f, 0.7f);
+            engine.render();
+            if(engine.checkKey(GLFW.GLFW_KEY_ESCAPE, GLFW.GLFW_PRESS) || GLFW.glfwWindowShouldClose(engine.getWindow())){
                 run = false;
             }
         }

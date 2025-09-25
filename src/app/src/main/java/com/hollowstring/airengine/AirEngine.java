@@ -8,6 +8,7 @@ public class AirEngine {
     private long window;
     private int width, height;
     private String title;
+    private float cR, cG, cB;
 
     public AirEngine(int w, int h, String t){
         this.width = w;
@@ -22,6 +23,16 @@ public class AirEngine {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
     }
 
+    public long getWindow(){
+        return window;
+    }
+
+    public void setClearColor(float cR, float cG, float cB){
+        this.cR = cR;
+        this.cG = cG;
+        this.cB = cB;
+    }
+
     public static void getVersion(){
         System.out.println("LWJGL Version: " + Version.getVersion());
     }
@@ -30,18 +41,19 @@ public class AirEngine {
         window = GLFW.glfwCreateWindow(width, height, title, 0, 0);
         GLFW.glfwMakeContextCurrent(window);
         GLFW.glfwShowWindow(window);
-        // FIXME: Throws No Context Error
-        GLFW.createCapabilities();
+        GL.createCapabilities();
         GL11.glViewport(0, 0, width, height);
     }
 
-    public void loopDefault(){
+    public void render(){
+        GL11.glClearColor(cR, cG, cB, 1.0f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         GLFW.glfwSwapBuffers(window);
         GLFW.glfwPollEvents();
     }
 
-    public boolean checkKey(long keyKey, long checkKey){
-        return GLFW.glfwGetKey(keyKey == checkKey);
+    public boolean checkKey(int keyKey, int checkKey){
+        return (GLFW.glfwGetKey(window, keyKey) == checkKey);
     }
 
     public void close(){

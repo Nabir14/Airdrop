@@ -14,6 +14,7 @@ public class Object {
          0.5f,  0.5f, 0.0f,
         -0.5f,  0.5f, 0.0f
     };
+
     private Material material;
     private float[] objectMesh;
     public float x, y, z;
@@ -32,6 +33,7 @@ public class Object {
         this.rotX = 0.0f;
         this.rotY = 0.0f;
         this.rotZ = 0.0f;
+        this.material.activate();
     }
     public Material getMaterial(){
         return material;

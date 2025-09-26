@@ -44,6 +44,8 @@ public class Material {
         GL20.glLinkProgram(shaderProgram);
     }
     public void activate(){
+        GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
+        GL20.glEnableVertexAttribArray(0);
         GL20.glUseProgram(shaderProgram);
         GL20.glDeleteShader(vertexShader);
         GL20.glDeleteShader(fragmentShader);

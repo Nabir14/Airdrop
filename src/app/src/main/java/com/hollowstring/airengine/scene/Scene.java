@@ -29,15 +29,16 @@ public class Scene {
 
     public void appendObject(Object obj){
         objectPoll[totalObjects] = obj;
+        objectPoll[totalObjects].getMaterial().activate();
         totalObjects++;
     }
 
     public void render(){
         for(int i = 0; i < objectPoll.length; i++){
             if(!(objectPoll[i] == null)){
+                GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
                 GL30.glBindVertexArray(VAO);
                 GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectPoll[i].getMesh(), GL15.GL_STATIC_DRAW);
-                objectPoll[i].getMaterial().activate();
                 GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
             }
         }

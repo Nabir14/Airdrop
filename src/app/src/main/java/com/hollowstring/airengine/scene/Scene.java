@@ -45,7 +45,9 @@ public class Scene {
 
     public void render(){
         for(int i = 0; i < objectPoll.length; i++){
-            GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
+            if(!(objectPoll[i] == null)){
+                GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
+            }
         }
         GL30.glBindVertexArray(VAO);
         GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);

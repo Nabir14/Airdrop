@@ -30,7 +30,7 @@ public class Material {
         GL20.glLinkProgram(shaderProgram);
     }
     public void setFragmentShader(String fS){
-                Path shaderPath = Path.of(fS);
+        Path shaderPath = Path.of(fS);
         String shaderSrc = null;
         try{
             shaderSrc = Files.readString(shaderPath);

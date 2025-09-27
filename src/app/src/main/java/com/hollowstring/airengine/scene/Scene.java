@@ -9,8 +9,10 @@ public class Scene {
     private Camera activeCamera;
     private Object[] objectPoll;
     private int VBO, VAO;
+    private int totalObjects = 0;
 
-    public Scene(){
+    public Scene(int maxObjects){
+        objectPoll = new Object[maxObjects];
         GL.createCapabilities();
         VBO = GL15.glGenBuffers();
         VAO = GL30.glGenVertexArrays();
@@ -27,18 +29,15 @@ public class Scene {
     }
 
     public void appendObject(Object obj){
-        if(objectPoll == null) {
-            objectPoll = new Object[0];
-            objectPoll[0] = obj;
-
-        }else{
-            objectPoll[objectPoll.length + 1] = obj;
-        }
+        objectPoll[totalObjects] = obj;
+        totalObjects++;
     }
 
     public void render(){
         for(int i = 0; i < objectPoll.length; i++){
-            GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectPoll[i].getMesh(), GL15.GL_STATIC_DRAW);
+            if(!(objectPoll[i] == null)){
+                GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectPoll[i].getMesh(), GL15.GL_STATIC_DRAW);
+            }
             GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
         }
     }

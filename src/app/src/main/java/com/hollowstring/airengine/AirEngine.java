@@ -5,6 +5,7 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
 public class AirEngine {
+    public static final String AirEngineVersion = "0.1a";
     private long window;
     private int width, height;
     private String title;
@@ -33,8 +34,11 @@ public class AirEngine {
         this.cB = cB;
     }
 
-    public static void getVersion(){
-        System.out.println("LWJGL Version: " + Version.getVersion());
+    public static String getVersion(){
+        return (
+            "AirEngine Version: " + AirEngineVersion + "\n" +
+            "LWJGL Version: " + Version.getVersion() + "\n"
+        );
     }
 
     public void createWindow(){

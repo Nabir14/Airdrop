@@ -17,7 +17,6 @@ public class Scene {
         VBO = GL15.glGenBuffers();
         VAO = GL30.glGenVertexArrays();
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
-        GL30.glBindVertexArray(VAO);
     }
 
     public Camera getActiveCamera() {
@@ -36,8 +35,9 @@ public class Scene {
     public void render(){
         for(int i = 0; i < objectPoll.length; i++){
             if(!(objectPoll[i] == null)){
-                objectPoll[i].getMaterial().activate();
+                GL30.glBindVertexArray(VAO);
                 GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectPoll[i].getMesh(), GL15.GL_STATIC_DRAW);
+                objectPoll[i].getMaterial().activate();
                 GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
             }
         }

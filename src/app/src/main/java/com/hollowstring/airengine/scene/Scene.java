@@ -16,7 +16,6 @@ public class Scene {
         GL.createCapabilities();
         VBO = GL15.glGenBuffers();
         VAO = GL30.glGenVertexArrays();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
     }
 
     public Camera getActiveCamera() {
@@ -29,19 +28,25 @@ public class Scene {
 
     public void appendObject(Object obj){
         objectPoll[totalObjects] = obj;
-        objectPoll[totalObjects].getMaterial().activate();
         totalObjects++;
     }
 
-    public void render(){
+    public void setCurrent(){
+        GL30.glBindVertexArray(VAO);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
         for(int i = 0; i < objectPoll.length; i++){
             if(!(objectPoll[i] == null)){
-                GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
-                GL30.glBindVertexArray(VAO);
+                System.out.println("Only Once For Now Until I Fix The Bug");
                 GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectPoll[i].getMesh(), GL15.GL_STATIC_DRAW);
-                GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
+                objectPoll[i].getMaterial().activate();
             }
         }
+    }
+
+    public void render(){
+        GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
+        GL30.glBindVertexArray(VAO);
+        GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
     }
 
 }

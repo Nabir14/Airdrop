@@ -36,9 +36,10 @@ public class Scene {
     public void render(){
         for(int i = 0; i < objectPoll.length; i++){
             if(!(objectPoll[i] == null)){
+                objectPoll[i].getMaterial().activate();
                 GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectPoll[i].getMesh(), GL15.GL_STATIC_DRAW);
+                GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
             }
-            GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 3);
         }
     }
 

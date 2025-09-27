@@ -33,7 +33,6 @@ public class Object {
         this.rotX = 0.0f;
         this.rotY = 0.0f;
         this.rotZ = 0.0f;
-        this.material.activate();
     }
     public Material getMaterial(){
         return material;

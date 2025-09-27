@@ -2,7 +2,6 @@ import org.lwjgl.glfw.*;
 
 import com.hollowstring.airengine.*;
 import com.hollowstring.airengine.scene.*;
-import com.hollowstring.airengine.object.*;
 import com.hollowstring.airengine.object.Object;
 import com.hollowstring.airengine.material.*;
 

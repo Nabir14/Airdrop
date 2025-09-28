@@ -30,7 +30,7 @@ public class Scene {
 
     public void processObjects(){
         for(int i = 0; i < objectPoll.length; i++){
-            if(!(objectPoll[i] == null)){
+            if(objectPoll[i] != null){
                 objectPoll[i].process();
             }
         }
@@ -38,7 +38,7 @@ public class Scene {
 
     public void render(){
         for(int i = 0; i < objectPoll.length; i++){
-            if(!(objectPoll[i] == null)){
+            if(objectPoll[i] != null){
                 if(!(objectPoll[i].isHidden)){
                     GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
                     GL30.glBindVertexArray(objectPoll[i].getVAO());

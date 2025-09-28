@@ -19,7 +19,7 @@ public class Airdrop {
 
         Object obj = new Object(Object.triangleMesh, mat);
         scene.appendObject(obj);
-        scene.setCurrent();
+        scene.processObjects();
 
         boolean run = true;
         while(run){

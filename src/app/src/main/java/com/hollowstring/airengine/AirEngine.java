@@ -9,7 +9,6 @@ public class AirEngine {
     private long window;
     private int width, height;
     private String title;
-    private float cR, cG, cB;
 
     public AirEngine(int w, int h, String t){
         this.width = w;
@@ -28,12 +27,6 @@ public class AirEngine {
         return window;
     }
 
-    public void setClearColor(float cR, float cG, float cB){
-        this.cR = cR;
-        this.cG = cG;
-        this.cB = cB;
-    }
-
     public static String getVersion(){
         return (
             "AirEngine Version: " + AirEngineVersion + "\n" +
@@ -49,9 +42,7 @@ public class AirEngine {
         GL11.glViewport(0, 0, width, height);
     }
 
-    public void render(){
-        GL11.glClearColor(cR, cG, cB, 1.0f);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+    public void processDefault(){
         GLFW.glfwSwapBuffers(window);
         GLFW.glfwPollEvents();
     }

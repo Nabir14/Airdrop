@@ -75,6 +75,16 @@ public class Object {
         this.sizeZ = z;
     }
     public void process(){
+        for(int i = 0; i < objectMesh.length; i++){
+            if(i % 3 == 0){
+                objectMesh[i] += x;
+                objectMesh[i+1] += y;
+                objectMesh[i+2] += z;
+                objectMesh[i] *= sizeX;
+                objectMesh[i+1] *= sizeY;
+                objectMesh[i+2] *= sizeZ;
+            }
+        }
         GL30.glBindVertexArray(VAO);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);

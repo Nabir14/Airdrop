@@ -6,6 +6,7 @@ import com.hollowstring.airengine.camera.Camera;
 import com.hollowstring.airengine.object.Object;
 
 public class Scene {
+    private float cR, cG, cB;
     private Camera activeCamera;
     private Object[] objectPoll;
     private int totalObjects = 0;
@@ -35,8 +36,16 @@ public class Scene {
             }
         }
     }
+    
+    public void setClearColor(float cR, float cG, float cB){
+        this.cR = cR;
+        this.cG = cG;
+        this.cB = cB;
+    }
 
     public void render(){
+        GL11.glClearColor(cR, cG, cB, 1.0f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         for(int i = 0; i < objectPoll.length; i++){
             if(objectPoll[i] != null){
                 if(!(objectPoll[i].isHidden)){

@@ -21,31 +21,14 @@ public class Object {
     private int VAO, VBO;
     private Material material;
     private float[] objectMesh;
-    public float x, y, z;
-    public float sizeX, sizeY, sizeZ;
-    public float rotX, rotY, rotZ;
 
     public Object(float[] mesh, Material mat){
         this.isHidden = false;
         this.objectMesh = mesh;
         this.material = mat;
-        this.x = 0.0f;
-        this.y = 0.0f;
-        this.z = 0.0f;
-        this.sizeX = 1.0f;
-        this.sizeY = 1.0f;
-        this.sizeZ = 1.0f;
-        this.rotX = 0.0f;
-        this.rotY = 0.0f;
-        this.rotZ = 0.0f;
-        GL.createCapabilities();
         this.VBO = GL15.glGenBuffers();
         this.VAO = GL30.glGenVertexArrays();
         material._compile();
-        GL30.glBindVertexArray(VAO);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
-        material._activate();
     }
     public Material getMaterial(){
         return material;
@@ -65,33 +48,35 @@ public class Object {
     public boolean isHidden() {
         return isHidden;
     }
-    public void setPos(float x, float y, float z){
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-    public void setRot(float x, float y, float z){
-        this.rotX = x;
-        this.rotY = y;
-        this.rotZ = z;
-    }
-    public void setSize(float x, float y, float z){
-        this.sizeX = x;
-        this.sizeY = y;
-        this.sizeZ = z;
-    }
-    public void _transform(){
+    public void updatePosition(float x, float y, float z){
         for(int i = 0; i < objectMesh.length; i++){
             if(i * 3 < objectMesh.length){
                 objectMesh[3* i] += x;
                 objectMesh[3* i+1] += y;
                 objectMesh[3* i+2] += z;
-                objectMesh[3* i] *= sizeX;
-                objectMesh[3* i+1] *= sizeY;
-                objectMesh[3* i+2] *= sizeZ;
             }else{
                 break;
             }
         }
+    }
+    public void setRot(float x, float y, float z){
+        // Not Implemented
+    }
+    public void updateSize(float x, float y, float z){
+        for(int i = 0; i < objectMesh.length; i++){
+            if(i * 3 < objectMesh.length){
+                objectMesh[3* i] *= x;
+                objectMesh[3* i+1] *= y;
+                objectMesh[3* i+2] *= z;
+            }else{
+                break;
+            }
+        }
+    }
+    public void _process(){
+        GL30.glBindVertexArray(VAO);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
+        material._activate();
     }
 }

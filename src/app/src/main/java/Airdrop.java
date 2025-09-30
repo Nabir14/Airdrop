@@ -1,5 +1,5 @@
 import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
 
 import com.hollowstring.airengine.*;
 import com.hollowstring.airengine.scene.*;
@@ -9,6 +9,7 @@ import com.hollowstring.airengine.material.*;
 public class Airdrop {
     public static void main(String[] args) {
         System.out.println(AirEngine.getVersion());
+
         AirEngine engine = new AirEngine(800, 600, "Airdrop");
         engine.createWindow();
 
@@ -24,10 +25,10 @@ public class Airdrop {
         Object obj = new Object(Object.squareMesh, mat);
         Object obj2 = new Object(Object.triangleMesh, mat2);
 
-        //obj.setSize(0.5f, 0.5f, 0.5f);
-        /*obj2.setSize(0.5f, 0.5f, 0.5f);
-        obj.setPos(-0.5f, 0.0f, 0.0f);
-        obj2.setPos(0.5f, 0.0f, 0.0f);*/
+        obj.updateSize(1.0f, 1.0f, 1.0f);
+        obj2.updateSize(1.0f, 1.0f, 1.0f);
+        obj.updatePosition(0.0f, 0.0f, 0.0f);
+        obj2.updatePosition(0.0f, 0.0f, 0.0f);
 
         scene.appendObject(obj);
         scene.appendObject(obj2);
@@ -39,6 +40,12 @@ public class Airdrop {
             engine.processDefault();
             if(engine.checkKey(GLFW.GLFW_KEY_ESCAPE, GLFW.GLFW_PRESS) || GLFW.glfwWindowShouldClose(engine.getWindow())){
                 run = false;
+            }else if(engine.checkKey(GLFW.GLFW_KEY_1, GLFW.GLFW_PRESS)){
+                obj.setHidden(!obj.isHidden);
+            }else if (engine.checkKey(GLFW.GLFW_KEY_2, GLFW.GLFW_PRESS)){
+                obj2.setHidden(!obj2.isHidden);
+            }else if(engine.checkKey(GLFW.GLFW_KEY_W, GLFW.GLFW_PRESS)){
+                engine.setDrawMode(GL11.GL_LINE);
             }
         }
         engine.close();

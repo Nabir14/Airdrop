@@ -15,7 +15,6 @@ public class Material {
         return shaderProgram;
     }
     public Material(){
-        GL.createCapabilities();
         this.shaderProgram = GL20.glCreateProgram();
     }
     public void setVertexShader(String vS){

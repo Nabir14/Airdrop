@@ -6,16 +6,25 @@ import java.nio.file.Path;
 
 import org.lwjgl.opengl.*;
 
+import com.hollowstring.airengine.texture.*;
+
 public class Material {
     private int vertexShader, fragmentShader;
     private String vertexShaderSource, fragmentShaderSource;
     private int shaderProgram;
+    private int texture;
 
     public int getShaderProgram() {
         return shaderProgram;
     }
     public Material(){
         this.shaderProgram = GL20.glCreateProgram();
+    }
+    public void setTexture(Texture texture) {
+        this.texture = texture.getTexture();
+    }
+    public int getTexture() {
+        return texture;
     }
     public void setVertexShader(String vS){
         Path shaderPath = Path.of(vS);

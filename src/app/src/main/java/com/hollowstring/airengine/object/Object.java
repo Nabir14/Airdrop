@@ -1,20 +1,21 @@
 package com.hollowstring.airengine.object;
 
 import org.lwjgl.opengl.*;
-
 import com.hollowstring.airengine.material.Material;
 
 public class Object {
     public static float[] triangleMesh = {
         -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
          0.0f,  0.5f, 0.0f
     };
     public static float[] squareMesh = {
         -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.5f,  0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f
+        0.5f, -0.5f, 0.0f,
+        0.5f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f,
+        0.5f, 0.5f, 0.0f,
     };
     public boolean isHidden;
     private int VAO, VBO;
@@ -40,6 +41,11 @@ public class Object {
         GL.createCapabilities();
         this.VBO = GL15.glGenBuffers();
         this.VAO = GL30.glGenVertexArrays();
+        material._compile();
+        GL30.glBindVertexArray(VAO);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
+        material._activate();
     }
     public Material getMaterial(){
         return material;
@@ -74,20 +80,18 @@ public class Object {
         this.sizeY = y;
         this.sizeZ = z;
     }
-    public void process(){
+    public void _transform(){
         for(int i = 0; i < objectMesh.length; i++){
-            if(i % 3 == 0){
-                objectMesh[i] += x;
-                objectMesh[i+1] += y;
-                objectMesh[i+2] += z;
-                objectMesh[i] *= sizeX;
-                objectMesh[i+1] *= sizeY;
-                objectMesh[i+2] *= sizeZ;
+            if(i * 3 < objectMesh.length){
+                objectMesh[3* i] += x;
+                objectMesh[3* i+1] += y;
+                objectMesh[3* i+2] += z;
+                objectMesh[3* i] *= sizeX;
+                objectMesh[3* i+1] *= sizeY;
+                objectMesh[3* i+2] *= sizeZ;
+            }else{
+                break;
             }
         }
-        GL30.glBindVertexArray(VAO);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
-        material.activate();
     }
 }

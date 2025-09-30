@@ -40,6 +40,7 @@ public class AirEngine {
         GLFW.glfwShowWindow(window);
         GL.createCapabilities();
         GL11.glViewport(0, 0, width, height);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
     public void processDefault(){
@@ -51,6 +52,10 @@ public class AirEngine {
         return (GLFW.glfwGetKey(window, keyKey) == checkKey);
     }
 
+    public void setDrawMode(int mode){
+        GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, mode);
+    }
+    
     public void close(){
         GLFW.glfwWindowShouldClose(this.window);
         GLFW.glfwTerminate();

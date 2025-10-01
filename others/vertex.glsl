@@ -1,8 +1,9 @@
 #version 330 core
 layout (location = 0) in vec3 attribPos;
-out vec2 TexCoord;
+layout (location = 1) in vec2 attribUV;
+out vec2 UV;
 
 void main(){
     gl_Position = vec4(attribPos, 1.0);
-    TexCoord = attribPos.xy;
+    UV = attribUV;
 }

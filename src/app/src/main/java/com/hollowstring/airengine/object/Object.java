@@ -4,18 +4,19 @@ import org.lwjgl.opengl.*;
 import com.hollowstring.airengine.material.Material;
 
 public class Object {
+    // Format: x, y, z, u, v
     public static float[] triangleMesh = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+         0.0f,  0.5f, 0.0f, 0.5f, 1.0f
     };
     public static float[] squareMesh = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.5f,  0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
-        0.5f, 0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+        0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f
     };
     public boolean isHidden;
     private int VAO, VBO;

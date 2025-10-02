@@ -62,7 +62,7 @@ public class Scene {
                     int transformLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "transform");
                     GL20.glUniformMatrix4fv(transformLocation, false, objectTranslation.get(new float[16]));
                     GL30.glBindVertexArray(objectPoll[i].getVAO());
-                    GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, objectPoll[i].getMesh().length / 5);
+                    GL11.glDrawElements(GL11.GL_TRIANGLES, (objectPoll[i].getMesh().length / 5) + (objectPoll[i].getMeshIndex().length / 3), GL11.GL_UNSIGNED_INT, 0);
                 }
             }
         }

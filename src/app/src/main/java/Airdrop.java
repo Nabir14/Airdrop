@@ -28,8 +28,8 @@ public class Airdrop {
         mat2.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
         mat2.setFragmentShader("/workspaces/Airdrop/others/fragment2.glsl");
 
-        Object obj = new Object(Mesh.squareMesh, mat);
-        Object obj2 = new Object(Mesh.triangleMesh, mat2);
+        Object obj = new Object(Mesh.squareMesh, Mesh.squareIndex, mat);
+        Object obj2 = new Object(Mesh.triangleMesh, Mesh.triangleIndex, mat2);
 
         scene.appendObject(obj);
         scene.appendObject(obj2);

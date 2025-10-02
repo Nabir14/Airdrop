@@ -1,6 +1,7 @@
 package com.hollowstring.airengine.scene;
 
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 import org.lwjgl.opengl.*;
 
 import com.hollowstring.airengine.camera.Camera;
@@ -54,10 +55,13 @@ public class Scene {
                         GL11.glBindTexture(GL11.GL_TEXTURE_2D, objectPoll[i].getMaterial().getTexture());
                     }
                     Matrix4f objectTranslation = new Matrix4f().identity();
-                    objectTranslation.translate(objectPoll[i].position.x, objectPoll[i].position.y, objectPoll[i].position.z);
-                    objectTranslation.rotateX((float)Math.toRadians(objectPoll[i].rotation.x));
-                    objectTranslation.rotateY((float)Math.toRadians(objectPoll[i].rotation.y));
-                    objectTranslation.rotateZ((float)Math.toRadians(objectPoll[i].rotation.z));
+                    Vector4f pos =  objectPoll[i].position.add(activeCamera.position);
+                    Vector4f rot = objectPoll[i].rotation.add(activeCamera.rotation);
+
+                    objectTranslation.translate(pos.x, pos.y, pos.z);
+                    objectTranslation.rotateX((float)Math.toRadians(rot.x));
+                    objectTranslation.rotateY((float)Math.toRadians(rot.y));
+                    objectTranslation.rotateZ((float)Math.toRadians(rot.z));
                     objectTranslation.scale(objectPoll[i].scale.x, objectPoll[i].scale.y, objectPoll[i].scale.z);
                     int transformLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "transform");
                     GL20.glUniformMatrix4fv(transformLocation, false, objectTranslation.get(new float[16]));

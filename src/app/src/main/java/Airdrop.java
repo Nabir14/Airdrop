@@ -2,6 +2,7 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL11;
 
 import com.hollowstring.airengine.*;
+import com.hollowstring.airengine.camera.Camera;
 import com.hollowstring.airengine.scene.*;
 import com.hollowstring.airengine.texture.*;
 import com.hollowstring.airengine.object.Object;
@@ -16,6 +17,9 @@ public class Airdrop {
         engine.createWindow();
 
         Scene scene = new Scene(64);
+        Camera camera = new Camera();
+
+        scene.setActiveCamera(camera);
 
         Texture texture = new Texture();
         texture.setTexture("/workspaces/Airdrop/others/wall_bricks_old_1024.png");

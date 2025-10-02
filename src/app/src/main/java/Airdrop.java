@@ -24,13 +24,20 @@ public class Airdrop {
         mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
         mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
         mat.setTexture(texture);
+        Material mat2 = new Material();
+        mat2.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
+        mat2.setFragmentShader("/workspaces/Airdrop/others/fragment2.glsl");
 
         Object obj = new Object(Mesh.squareMesh, mat);
+        Object obj2 = new Object(Mesh.triangleMesh, mat2);
 
         scene.appendObject(obj);
+        scene.appendObject(obj2);
+        scene.process();
 
         boolean run = true;
         while(run){
+            obj.rotation.y += 0.05f;
             scene.setClearColor(0.3f, 0.5f, 0.7f);
             scene.render();
             engine.processDefault();

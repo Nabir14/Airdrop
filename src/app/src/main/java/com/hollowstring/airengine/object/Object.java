@@ -10,9 +10,9 @@ public class Object {
     private int VAO, VBO;
     private Material material;
     private float[] objectMesh;
-    Vector4f position = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
-    Vector4f rotation = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
-    Vector4f scale = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+    public Vector4f position = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+    public Vector4f rotation = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+    public Vector4f scale = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
     public Object(float[] mesh, Material mat){
         this.isHidden = false;
         this.objectMesh = mesh;
@@ -59,13 +59,5 @@ public class Object {
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
         material._activate();
-        Matrix4f objectTranslation = new Matrix4f().identity();
-        objectTranslation.translate(position.x, position.y, position.z);
-        objectTranslation.rotateX((float)Math.toRadians(rotation.x));
-        objectTranslation.rotateY((float)Math.toRadians(rotation.y));
-        objectTranslation.rotateZ((float)Math.toRadians(rotation.z));
-        objectTranslation.scale(scale.x, scale.y, scale.z);
-        int transformLocation = GL20.glGetUniformLocation(material.getShaderProgram(), "transform");
-        GL20.glUniformMatrix4fv(transformLocation, false, objectTranslation.get(new float[16]));
     }
 }

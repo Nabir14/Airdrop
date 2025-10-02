@@ -1,7 +1,6 @@
 package com.hollowstring.airengine.scene;
 
 import org.joml.Matrix4f;
-import org.joml.Vector4f;
 import org.lwjgl.opengl.*;
 
 import com.hollowstring.airengine.camera.Camera;
@@ -46,7 +45,7 @@ public class Scene {
     }
     public void render(){
         GL11.glClearColor(cR, cG, cB, 1.0f);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         for(int i = 0; i < objectPoll.length; i++){
             if(objectPoll[i] != null){
                 if(!(objectPoll[i].isHidden)){
@@ -55,18 +54,24 @@ public class Scene {
                         GL11.glBindTexture(GL11.GL_TEXTURE_2D, objectPoll[i].getMaterial().getTexture());
                     }
                     Matrix4f objectTranslation = new Matrix4f().identity();
-                    Vector4f pos =  objectPoll[i].position.add(activeCamera.position);
-                    Vector4f rot = objectPoll[i].rotation.add(activeCamera.rotation);
-
-                    objectTranslation.translate(pos.x, pos.y, pos.z);
-                    objectTranslation.rotateX((float)Math.toRadians(rot.x));
-                    objectTranslation.rotateY((float)Math.toRadians(rot.y));
-                    objectTranslation.rotateZ((float)Math.toRadians(rot.z));
+                    objectTranslation.translate(objectPoll[i].position.x, objectPoll[i].position.y, objectPoll[i].position.z);
+                    objectTranslation.rotateX((float)Math.toRadians(objectPoll[i].rotation.x));
+                    objectTranslation.rotateY((float)Math.toRadians(objectPoll[i].rotation.y));
+                    objectTranslation.rotateZ((float)Math.toRadians(objectPoll[i].rotation.z));
                     objectTranslation.scale(objectPoll[i].scale.x, objectPoll[i].scale.y, objectPoll[i].scale.z);
+                    Matrix4f cameraTranslation = new Matrix4f().identity();
+                    cameraTranslation.translate(activeCamera.position.x, activeCamera.position.y, activeCamera.position.z);
+                    cameraTranslation.rotateX((float)Math.toRadians(activeCamera.rotation.x));
+                    cameraTranslation.rotateY((float)Math.toRadians(activeCamera.rotation.y));
+                    cameraTranslation.rotateZ((float)Math.toRadians(activeCamera.rotation.z));
                     int transformLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "transform");
+                    int cameraLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "cameraTransform");
+                    int projectionLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "projection");
                     GL20.glUniformMatrix4fv(transformLocation, false, objectTranslation.get(new float[16]));
+                    GL20.glUniformMatrix4fv(cameraLocation, false, cameraTranslation.get(new float[16]));
+                    GL20.glUniformMatrix4fv(projectionLocation, false, activeCamera.projection.get(new float[16]));
                     GL30.glBindVertexArray(objectPoll[i].getVAO());
-                    GL11.glDrawElements(GL11.GL_TRIANGLES, (objectPoll[i].getMesh().length / 5) + (objectPoll[i].getMeshIndex().length / 3), GL11.GL_UNSIGNED_INT, 0);
+                    GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, objectPoll[i].getMesh().length / 5);
                 }
             }
         }

@@ -7,21 +7,18 @@ import com.hollowstring.airengine.material.Material;
 
 public class Object {
     public boolean isHidden;
-    private int VAO, VBO, EBO;
+    private int VAO, VBO;
     private Material material;
     private float[] objectMesh;
-    private int[] objectMeshIndex;
     public Vector4f position = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
     public Vector4f rotation = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
     public Vector4f scale = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
-    public Object(float[] mesh,int[] meshIndex, Material mat){
+    public Object(float[] mesh, Material mat){
         this.isHidden = false;
         this.objectMesh = mesh;
-        this.objectMeshIndex = meshIndex;
         this.material = mat;
         this.VBO = GL15.glGenBuffers();
         this.VAO = GL30.glGenVertexArrays();
-        this.EBO = GL15.glGenBuffers();
         material._compile();
     }
     public Material getMaterial(){
@@ -35,9 +32,6 @@ public class Object {
     }
     public float[] getMesh(){
         return objectMesh;
-    }
-    public int[] getMeshIndex() {
-        return objectMeshIndex;
     }
     public void setHidden(boolean isHidden) {
         this.isHidden = isHidden;
@@ -64,8 +58,6 @@ public class Object {
         GL30.glBindVertexArray(VAO);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, EBO);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, objectMeshIndex, GL15.GL_STATIC_DRAW);
         material._activate();
     }
 }

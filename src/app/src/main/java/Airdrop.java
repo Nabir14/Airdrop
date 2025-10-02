@@ -17,9 +17,11 @@ public class Airdrop {
         engine.createWindow();
 
         Scene scene = new Scene(64);
-        Camera camera = new Camera();
+        Camera camera = new Camera(70, 800, 600, 0.1f, 1000.0f);
 
         scene.setActiveCamera(camera);
+
+        camera.position.z = -3.0f;
 
         Texture texture = new Texture();
         texture.setTexture("/workspaces/Airdrop/others/wall_bricks_old_1024.png");
@@ -28,20 +30,18 @@ public class Airdrop {
         mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
         mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
         mat.setTexture(texture);
-        Material mat2 = new Material();
-        mat2.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
-        mat2.setFragmentShader("/workspaces/Airdrop/others/fragment2.glsl");
 
-        Object obj = new Object(Mesh.squareMesh, Mesh.squareIndex, mat);
-        Object obj2 = new Object(Mesh.triangleMesh, Mesh.triangleIndex, mat2);
+        Object obj = new Object(Mesh.cubeMesh, mat);
+
+        obj.rotation.x = -45.0f;
 
         scene.appendObject(obj);
-        scene.appendObject(obj2);
         scene.process();
 
         boolean run = true;
         while(run){
-            obj.rotation.y += 0.05f;
+            obj.rotation.x -= 0.1f;
+            obj.rotation.y -= 0.1f;
             scene.setClearColor(0.3f, 0.5f, 0.7f);
             scene.render();
             engine.processDefault();
@@ -51,6 +51,16 @@ public class Airdrop {
                 obj.setHidden(!obj.isHidden);
             }else if(engine.checkKey(GLFW.GLFW_KEY_W, GLFW.GLFW_PRESS)){
                 engine.setDrawMode(GL11.GL_LINE);
+            }else if(engine.checkKey(GLFW.GLFW_KEY_F, GLFW.GLFW_PRESS)){
+                engine.setDrawMode(GL11.GL_FILL);
+            }else if(engine.checkKey(GLFW.GLFW_KEY_UP, GLFW.GLFW_PRESS)){
+                camera.position.z += 0.1f;
+            }else if(engine.checkKey(GLFW.GLFW_KEY_DOWN, GLFW.GLFW_PRESS)){
+                camera.position.z -= 0.1f;
+            }else if(engine.checkKey(GLFW.GLFW_KEY_LEFT, GLFW.GLFW_PRESS)){
+                camera.rotation.y += 0.1f;
+            }else if(engine.checkKey(GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_PRESS)){
+                camera.rotation.y -= 0.1f;
             }
         }
         engine.close();

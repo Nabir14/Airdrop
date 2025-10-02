@@ -40,6 +40,7 @@ public class AirEngine {
         GLFW.glfwShowWindow(window);
         GL.createCapabilities();
         GL11.glViewport(0, 0, width, height);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
     public void processDefault(){

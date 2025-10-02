@@ -6,6 +6,7 @@ import com.hollowstring.airengine.scene.*;
 import com.hollowstring.airengine.texture.*;
 import com.hollowstring.airengine.object.Object;
 import com.hollowstring.airengine.material.*;
+import com.hollowstring.airengine.mesh.Mesh;
 
 public class Airdrop {
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class Airdrop {
         mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
         mat.setTexture(texture);
 
-        Object obj = new Object(Object.squareMesh, mat);
+        Object obj = new Object(Mesh.squareMesh, mat);
 
         scene.appendObject(obj);
 

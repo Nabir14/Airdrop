@@ -1,28 +1,18 @@
 package com.hollowstring.airengine.object;
 
 import org.lwjgl.opengl.*;
+import org.joml.Vector4f;
+import org.joml.Matrix4f;
 import com.hollowstring.airengine.material.Material;
 
 public class Object {
-    // Format: x, y, z, u, v
-    public static float[] triangleMesh = {
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-         0.0f,  0.5f, 0.0f, 0.5f, 1.0f
-    };
-    public static float[] squareMesh = {
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-        0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f
-    };
     public boolean isHidden;
     private int VAO, VBO;
     private Material material;
     private float[] objectMesh;
-
+    Vector4f position = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+    Vector4f rotation = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+    Vector4f scale = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
     public Object(float[] mesh, Material mat){
         this.isHidden = false;
         this.objectMesh = mesh;
@@ -49,35 +39,33 @@ public class Object {
     public boolean isHidden() {
         return isHidden;
     }
-    public void updatePosition(float x, float y, float z){
-        for(int i = 0; i < objectMesh.length; i++){
-            if(i * 3 < objectMesh.length){
-                objectMesh[3* i] += x;
-                objectMesh[3* i+1] += y;
-                objectMesh[3* i+2] += z;
-            }else{
-                break;
-            }
-        }
+    public void setPosition(float x, float y, float z){
+        position.x = x;
+        position.y = y;
+        position.z = z;
     }
     public void setRot(float x, float y, float z){
-        // Not Implemented
+        rotation.x = x;
+        rotation.y = y;
+        rotation.z = z;
     }
-    public void updateSize(float x, float y, float z){
-        for(int i = 0; i < objectMesh.length; i++){
-            if(i * 3 < objectMesh.length){
-                objectMesh[3* i] *= x;
-                objectMesh[3* i+1] *= y;
-                objectMesh[3* i+2] *= z;
-            }else{
-                break;
-            }
-        }
+    public void setSize(float x, float y, float z){
+        scale.x = x;
+        scale.y = y;
+        scale.z = z;
     }
     public void _process(){
         GL30.glBindVertexArray(VAO);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, objectMesh, GL15.GL_STATIC_DRAW);
         material._activate();
+        Matrix4f objectTranslation = new Matrix4f().identity();
+        objectTranslation.translate(position.x, position.y, position.z);
+        objectTranslation.rotateX((float)Math.toRadians(rotation.x));
+        objectTranslation.rotateY((float)Math.toRadians(rotation.y));
+        objectTranslation.rotateZ((float)Math.toRadians(rotation.z));
+        objectTranslation.scale(scale.x, scale.y, scale.z);
+        int transformLocation = GL20.glGetUniformLocation(material.getShaderProgram(), "transform");
+        GL20.glUniformMatrix4fv(transformLocation, false, objectTranslation.get(new float[16]));
     }
 }

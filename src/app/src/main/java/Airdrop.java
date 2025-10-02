@@ -26,29 +26,26 @@ public class Airdrop {
         Texture texture = new Texture();
         texture.setTexture("/workspaces/Airdrop/others/wall_bricks_old_1024.png");
 
-        Material mat = new Material();
-        mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
-        mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
-        mat.setTexture(texture);
+        for(int i = 0; i < 32; i++){
+            Material mat = new Material();
+            mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
+            mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
+            mat.setTexture(texture);
+            Object obj = new Object(Mesh.cubeMesh, mat);
+            obj.setPosition((float)i, 0.0f, 0.0f);
+            scene.appendObject(obj);
+        }
 
-        Object obj = new Object(Mesh.cubeMesh, mat);
 
-        obj.rotation.x = -45.0f;
-
-        scene.appendObject(obj);
         scene.process();
 
         boolean run = true;
         while(run){
-            obj.rotation.x -= 0.1f;
-            obj.rotation.y -= 0.1f;
             scene.setClearColor(0.3f, 0.5f, 0.7f);
             scene.render();
             engine.processDefault();
             if(engine.checkKey(GLFW.GLFW_KEY_ESCAPE, GLFW.GLFW_PRESS) || GLFW.glfwWindowShouldClose(engine.getWindow())){
                 run = false;
-            }else if(engine.checkKey(GLFW.GLFW_KEY_1, GLFW.GLFW_PRESS)){
-                obj.setHidden(!obj.isHidden);
             }else if(engine.checkKey(GLFW.GLFW_KEY_W, GLFW.GLFW_PRESS)){
                 engine.setDrawMode(GL11.GL_LINE);
             }else if(engine.checkKey(GLFW.GLFW_KEY_F, GLFW.GLFW_PRESS)){

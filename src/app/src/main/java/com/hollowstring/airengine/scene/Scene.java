@@ -1,6 +1,7 @@
 package com.hollowstring.airengine.scene;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.*;
 
 import com.hollowstring.airengine.camera.Camera;
@@ -34,7 +35,7 @@ public class Scene {
         this.cG = cG;
         this.cB = cB;
     }
-    public void process(){
+    public void processObjects(){
         for(int i = 0; i < objectPoll.length; i++){
             if(objectPoll[i] != null){
                 if(!(objectPoll[i].isHidden)){
@@ -54,16 +55,13 @@ public class Scene {
                         GL11.glBindTexture(GL11.GL_TEXTURE_2D, objectPoll[i].getMaterial().getTexture());
                     }
                     Matrix4f objectTranslation = new Matrix4f().identity();
-                    objectTranslation.translate(objectPoll[i].position.x, objectPoll[i].position.y, objectPoll[i].position.z);
+                    objectTranslation.translate(objectPoll[i].position);
                     objectTranslation.rotateX((float)Math.toRadians(objectPoll[i].rotation.x));
                     objectTranslation.rotateY((float)Math.toRadians(objectPoll[i].rotation.y));
                     objectTranslation.rotateZ((float)Math.toRadians(objectPoll[i].rotation.z));
-                    objectTranslation.scale(objectPoll[i].scale.x, objectPoll[i].scale.y, objectPoll[i].scale.z);
+                    objectTranslation.scale(objectPoll[i].scale);
                     Matrix4f cameraTranslation = new Matrix4f().identity();
-                    cameraTranslation.translate(activeCamera.position.x, activeCamera.position.y, activeCamera.position.z);
-                    cameraTranslation.rotateX((float)Math.toRadians(activeCamera.rotation.x));
-                    cameraTranslation.rotateY((float)Math.toRadians(activeCamera.rotation.y));
-                    cameraTranslation.rotateZ((float)Math.toRadians(activeCamera.rotation.z));
+                    cameraTranslation.lookAt(activeCamera.position, activeCamera.getTarget(), new Vector3f(0.0f, 1.0f, 0.0f));
                     int transformLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "transform");
                     int cameraLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "cameraTransform");
                     int projectionLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "projection");

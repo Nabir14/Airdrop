@@ -2,7 +2,7 @@ package com.hollowstring.airengine.object;
 
 import org.lwjgl.opengl.*;
 
-import org.joml.Vector4f;
+import org.joml.Vector3f;
 import com.hollowstring.airengine.material.Material;
 
 public class Object {
@@ -10,9 +10,9 @@ public class Object {
     private int VAO, VBO;
     private Material material;
     private float[] objectMesh;
-    public Vector4f position = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
-    public Vector4f rotation = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
-    public Vector4f scale = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+    public Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
+    public Vector3f rotation = new Vector3f(0.0f, 0.0f, 0.0f);
+    public Vector3f scale = new Vector3f(1.0f, 1.0f, 1.0f);
     public Object(float[] mesh, Material mat){
         this.isHidden = false;
         this.objectMesh = mesh;

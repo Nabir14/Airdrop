@@ -21,23 +21,24 @@ public class Airdrop {
 
         scene.setActiveCamera(camera);
 
-        camera.position.z = -3.0f;
+        camera.setPosition(0.0f, 3.0f, -3.0f);
 
         Texture texture = new Texture();
         texture.setTexture("/workspaces/Airdrop/others/wall_bricks_old_1024.png");
 
-        for(int i = 0; i < 32; i++){
-            Material mat = new Material();
-            mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
-            mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
-            mat.setTexture(texture);
-            Object obj = new Object(Mesh.cubeMesh, mat);
-            obj.setPosition((float)i, 0.0f, 0.0f);
-            scene.appendObject(obj);
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                Material mat = new Material();
+                mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
+                mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
+                mat.setTexture(texture);
+                Object obj = new Object(Mesh.cubeMesh, mat);
+                obj.setPosition((float)i, 0.0f, (float)j);
+                scene.appendObject(obj);
+            }
         }
 
-
-        scene.process();
+        scene.processObjects();
 
         boolean run = true;
         while(run){

@@ -17,9 +17,6 @@ public class Material {
     public int getShaderProgram() {
         return shaderProgram;
     }
-    public Material(){
-        this.shaderProgram = GL20.glCreateProgram();
-    }
     public void setTexture(Texture texture) {
         this.texture = texture.getTexture();
     }
@@ -43,6 +40,7 @@ public class Material {
         }
     }
     public void _compile(){
+        shaderProgram = GL20.glCreateProgram();
         vertexShader = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
         GL20.glShaderSource(vertexShader, vertexShaderSource);
         GL20.glCompileShader(vertexShader);

@@ -63,10 +63,10 @@ public class Scene {
                     Matrix4f cameraTranslation = new Matrix4f().identity();
                     cameraTranslation.lookAt(activeCamera.position, activeCamera.getTarget(), new Vector3f(0.0f, 1.0f, 0.0f));
                     int transformLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "transform");
-                    int cameraLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "cameraTransform");
+                    int cameraTransformLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "cameraTransform");
                     int projectionLocation = GL20.glGetUniformLocation(objectPoll[i].getMaterial().getShaderProgram(), "projection");
                     GL20.glUniformMatrix4fv(transformLocation, false, objectTranslation.get(new float[16]));
-                    GL20.glUniformMatrix4fv(cameraLocation, false, cameraTranslation.get(new float[16]));
+                    GL20.glUniformMatrix4fv(cameraTransformLocation, false, cameraTranslation.get(new float[16]));
                     GL20.glUniformMatrix4fv(projectionLocation, false, activeCamera.projection.get(new float[16]));
                     GL30.glBindVertexArray(objectPoll[i].getVAO());
                     GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, objectPoll[i].getMesh().length / 5);

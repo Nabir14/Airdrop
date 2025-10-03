@@ -23,21 +23,28 @@ public class Airdrop {
 
         camera.setPosition(-3.0f, 3.0f, 0.0f);
 
-        Texture texture = new Texture();
-        texture.setTexture("/workspaces/Airdrop/others/wall_bricks_old_1024.png");
+        Texture grassTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
+        grassTexture.setTexture("/workspaces/Airdrop/others/grass.jpg");
+        Texture brickTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
+        brickTexture.setTexture("/workspaces/Airdrop/others/bricks.png");
 
-        for(int i = 0; i < 6; i++){
-            for(int j = 0; j < 6; j++){
-                Material mat = new Material();
-                mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
-                mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
-                mat.setTexture(texture);
-                Object obj = new Object(Mesh.cubeMesh, mat);
-                obj.setPosition((float)i, 0.0f, (float)j);
-                scene.appendObject(obj);
-            }
-        }
+        Material mat = new Material();
+        mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
+        mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
+        mat.setTexture(grassTexture);
+        Material mat2 = new Material();
+        mat2.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
+        mat2.setFragmentShader("/workspaces/Airdrop/others/fragment2.glsl");
+        mat2.setTexture(brickTexture);
 
+
+        Object obj = new Object(Mesh.Cube, mat);
+        obj.setSize(64.0f, 1.0f, 64.0f);
+        Object brick = new Object(Mesh.Cube, mat2);
+        brick.setPosition(0.0f,1.0f, 0.0f);
+        
+        scene.appendObject(obj);
+        scene.appendObject(brick);
         scene.processObjects();
 
         boolean run = true;
@@ -59,6 +66,10 @@ public class Airdrop {
                 camera.rotation.y -= 1.0f;
             }else if(engine.checkKey(GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_PRESS)){
                 camera.rotation.y += 1.0f;
+            }else if(engine.checkKey(GLFW.GLFW_KEY_U, GLFW.GLFW_PRESS)){
+                camera.rotation.x += 1.0f;
+            }else if(engine.checkKey(GLFW.GLFW_KEY_D, GLFW.GLFW_PRESS)){
+                camera.rotation.x -= 1.0f;
             }
         }
         engine.close();

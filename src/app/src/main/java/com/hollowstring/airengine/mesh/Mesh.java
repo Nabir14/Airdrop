@@ -1,13 +1,21 @@
 package com.hollowstring.airengine.mesh;
 
 public class Mesh {
+    public static float[] Quad = {
+        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+        -0.5f,  0.5f, 0.5f, 0.0f, 1.0f,
+        -0.5f,  0.5f, 0.5f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 1.0f, 1.0f
+    };
     public static float[] Plane = {
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f
+        -0.5f, 0.0f, -0.5f, 0.0f, 0.0f,
+        0.5f, 0.0f, -0.5f, 1.0f, 0.0f,
+        -0.5f,  0.0f, 0.5f, 0.0f, 1.0f,
+        -0.5f,  0.0f, 0.5f, 0.0f, 1.0f,
+        0.5f, 0.0f, -0.5f, 1.0f, 0.0f,
+        0.5f, 0.0f, 0.5f, 1.0f, 1.0f
     };
     public static float[] Cube = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,

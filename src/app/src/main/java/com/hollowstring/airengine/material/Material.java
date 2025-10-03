@@ -13,7 +13,6 @@ public class Material {
     private String vertexShaderSource, fragmentShaderSource;
     private int shaderProgram;
     private int texture;
-
     public int getShaderProgram() {
         return shaderProgram;
     }

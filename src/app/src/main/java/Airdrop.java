@@ -37,9 +37,8 @@ public class Airdrop {
         mat2.setFragmentShader("/workspaces/Airdrop/others/fragment2.glsl");
         mat2.setTexture(brickTexture);
 
-
-        Object obj = new Object(Mesh.Cube, mat);
-        obj.setSize(64.0f, 1.0f, 64.0f);
+        Object obj = new Object(Mesh.Plane, mat);
+        obj.setSize(64.0f, 64.0f, 64.0f);
         Object brick = new Object(Mesh.Cube, mat2);
         brick.setPosition(0.0f,1.0f, 0.0f);
         

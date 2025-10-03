@@ -54,7 +54,7 @@ public class Airdrop {
             }else if(engine.checkKey(GLFW.GLFW_KEY_UP, GLFW.GLFW_PRESS)){
                 camera.position.add(camera.direction.normalize().mul(0.1f));
             }else if(engine.checkKey(GLFW.GLFW_KEY_DOWN, GLFW.GLFW_PRESS)){
-                camera.position.add(camera.direction.normalize().mul(0.1f));
+                camera.position.sub(camera.direction.normalize().mul(0.1f));
             }else if(engine.checkKey(GLFW.GLFW_KEY_LEFT, GLFW.GLFW_PRESS)){
                 camera.rotation.y -= 1.0f;
             }else if(engine.checkKey(GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_PRESS)){

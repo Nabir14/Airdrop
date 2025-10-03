@@ -30,3 +30,13 @@ dependencies {
 	implementation "org.joml:joml:${jomlVersion}"
 	implementation "org.joml:joml-primitives:${jomlPrimitivesVersion}"
 }
+
+application {
+	mainClass = "Airdrop"
+}
+
+jar {
+	manifest {
+		attributes["Main-Class"] = "Airdrop"
+	}
+}

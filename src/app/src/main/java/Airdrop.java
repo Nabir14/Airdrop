@@ -21,13 +21,13 @@ public class Airdrop {
 
         scene.setActiveCamera(camera);
 
-        camera.setPosition(0.0f, 3.0f, -3.0f);
+        camera.setPosition(-3.0f, 3.0f, 0.0f);
 
         Texture texture = new Texture();
         texture.setTexture("/workspaces/Airdrop/others/wall_bricks_old_1024.png");
 
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 6; j++){
                 Material mat = new Material();
                 mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
                 mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
@@ -52,13 +52,13 @@ public class Airdrop {
             }else if(engine.checkKey(GLFW.GLFW_KEY_F, GLFW.GLFW_PRESS)){
                 engine.setDrawMode(GL11.GL_FILL);
             }else if(engine.checkKey(GLFW.GLFW_KEY_UP, GLFW.GLFW_PRESS)){
-                camera.position.z += 0.1f;
+                camera.position.add(camera.direction.normalize().mul(0.1f));
             }else if(engine.checkKey(GLFW.GLFW_KEY_DOWN, GLFW.GLFW_PRESS)){
-                camera.position.z -= 0.1f;
+                camera.position.add(camera.direction.normalize().mul(0.1f));
             }else if(engine.checkKey(GLFW.GLFW_KEY_LEFT, GLFW.GLFW_PRESS)){
-                camera.rotation.y += 0.1f;
+                camera.rotation.y -= 1.0f;
             }else if(engine.checkKey(GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_PRESS)){
-                camera.rotation.y -= 0.1f;
+                camera.rotation.y += 1.0f;
             }
         }
         engine.close();

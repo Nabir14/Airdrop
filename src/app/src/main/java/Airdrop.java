@@ -24,17 +24,17 @@ public class Airdrop {
         camera.setPosition(-3.0f, 3.0f, 0.0f);
 
         Texture grassTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
-        grassTexture.setTexture("/workspaces/Airdrop/others/grass.jpg");
+        grassTexture.setTexture("src/app/src/main/resources/others/grass.jpg");
         Texture brickTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
-        brickTexture.setTexture("/workspaces/Airdrop/others/bricks.png");
+        brickTexture.setTexture("src/app/src/main/resources/others/bricks.png");
 
         Material mat = new Material();
-        mat.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
-        mat.setFragmentShader("/workspaces/Airdrop/others/fragment.glsl");
+        mat.setVertexShader("src/app/src/main/resources/others/vertex.glsl");
+        mat.setFragmentShader("src/app/src/main/resources/others/fragment.glsl");
         mat.setTexture(grassTexture);
         Material mat2 = new Material();
-        mat2.setVertexShader("/workspaces/Airdrop/others/vertex.glsl");
-        mat2.setFragmentShader("/workspaces/Airdrop/others/fragment2.glsl");
+        mat2.setVertexShader("src/app/src/main/resources/others/vertex.glsl");
+        mat2.setFragmentShader("src/app/src/main/resources/others/fragment2.glsl");
         mat2.setTexture(brickTexture);
 
         Object obj = new Object(Mesh.Plane, mat);

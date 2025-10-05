@@ -1,8 +1,6 @@
 package com.hollowstring.airengine.material;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import org.lwjgl.opengl.*;
 
@@ -23,17 +21,15 @@ public class Material {
         return texture;
     }
     public void setVertexShader(String vS){
-        Path shaderPath = Path.of(vS);
         try{
-            vertexShaderSource = Files.readString(shaderPath);
+            vertexShaderSource = new String(getClass().getClassLoader().getResourceAsStream(vS).readAllBytes());
         }catch(IOException e){
             e.printStackTrace();
         }
     }
     public void setFragmentShader(String fS){
-        Path shaderPath = Path.of(fS);
         try{
-            fragmentShaderSource = Files.readString(shaderPath);
+            fragmentShaderSource = new String(getClass().getClassLoader().getResourceAsStream(fS).readAllBytes());
         }catch(IOException e){
             e.printStackTrace();
         }

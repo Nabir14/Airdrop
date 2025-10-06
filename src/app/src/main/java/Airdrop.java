@@ -24,19 +24,19 @@ public class Airdrop {
         camera.setPosition(-3.0f, 3.0f, 0.0f);
 
         Texture grassTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
-        grassTexture.setTexture("others/grass.jpg");
+        grassTexture.loadTexture("others/grass.jpg");
         Texture brickTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
-        brickTexture.setTexture("others/bricks.png");
+        brickTexture.loadTexture("others/bricks.png");
 
         Material mat = new Material();
         mat.setVertexShader("others/vertex.glsl");
         mat.setFragmentShader("others/fragment.glsl");
-        mat.setTexture(grassTexture);
+        mat.setTexture(grassTexture, "defaultTexture");
         Material mat2 = new Material();
         mat2.setVertexShader("others/vertex.glsl");
         mat2.setFragmentShader("others/fragment2.glsl");
-        mat2.setTexture(brickTexture);
-        mat2.setTexture(grassTexture);
+        mat2.setTexture(brickTexture, "defaultTexture");
+        mat2.setTexture(grassTexture, "secondTexture");
         
         Object obj = new Object(Mesh.Plane, mat);
         obj.setSize(64.0f, 64.0f, 64.0f);

@@ -16,7 +16,7 @@ public class Texture {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, minFilterMode);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, maxFilterMode);
     }
-    public void setTexture(String path){
+    public void loadTexture(String path){
         BufferedImage image = null;
         try {
             image = ImageIO.read(getClass().getClassLoader().getResourceAsStream(path));

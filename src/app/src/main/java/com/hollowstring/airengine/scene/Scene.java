@@ -35,6 +35,7 @@ public class Scene {
         this.cG = cG;
         this.cB = cB;
     }
+
     public void processObjects(){
         for(int i = 0; i < objectPoll.length; i++){
             if(objectPoll[i] != null){
@@ -51,8 +52,11 @@ public class Scene {
             if(objectPoll[i] != null){
                 if(!(objectPoll[i].isHidden)){
                     GL20.glUseProgram(objectPoll[i].getMaterial().getShaderProgram());
-                    if(objectPoll[i].getMaterial().getTexture() != 0){
-                        GL11.glBindTexture(GL11.GL_TEXTURE_2D, objectPoll[i].getMaterial().getTexture());
+                    if(objectPoll[i].getMaterial().getTexture().length != 0){
+                        for(int j = 0; j < objectPoll[i].getMaterial().getTexture().length; j++){
+                            GL13.glActiveTexture(GL13.GL_TEXTURE0+j);
+                            GL11.glBindTexture(GL11.GL_TEXTURE_2D, objectPoll[i].getMaterial().getTexture()[j]);
+                        }
                     }
                     Matrix4f objectTranslation = new Matrix4f().identity();
                     objectTranslation.translate(objectPoll[i].position);

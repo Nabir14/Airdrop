@@ -10,14 +10,19 @@ public class Material {
     private int vertexShader, fragmentShader;
     private String vertexShaderSource, fragmentShaderSource;
     private int shaderProgram;
-    private int texture;
+    private int[] texture;
+    private int totalTextures;
+    public Material(){
+        this.texture = new int[GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS)];
+    }
     public int getShaderProgram() {
         return shaderProgram;
     }
     public void setTexture(Texture texture) {
-        this.texture = texture.getTexture();
+        this.texture[totalTextures]= texture.getTexture();
+        totalTextures++;
     }
-    public int getTexture() {
+    public int[] getTexture() {
         return texture;
     }
     public void setVertexShader(String vS){

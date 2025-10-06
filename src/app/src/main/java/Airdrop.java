@@ -36,6 +36,7 @@ public class Airdrop {
         mat2.setVertexShader("others/vertex.glsl");
         mat2.setFragmentShader("others/fragment2.glsl");
         mat2.setTexture(brickTexture);
+        mat2.setTexture(grassTexture);
         
         Object obj = new Object(Mesh.Plane, mat);
         obj.setSize(64.0f, 64.0f, 64.0f);

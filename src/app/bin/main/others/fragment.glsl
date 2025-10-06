@@ -2,7 +2,8 @@
 out vec4 FragColor;
 in vec2 UV;
 uniform sampler2D defaultTexture;
+uniform vec3 ambientLightColor;
 
 void main(){
-    FragColor = texture(defaultTexture, UV * 32.0);
+    FragColor = vec4(ambientLightColor * texture(defaultTexture, UV * 32.0).rgb, 1.0);
 }

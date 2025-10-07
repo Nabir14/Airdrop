@@ -2,6 +2,7 @@ package com.hollowstring.airengine.material;
 
 import java.io.*;
 
+import org.joml.*;
 import org.lwjgl.opengl.*;
 
 import com.hollowstring.airengine.texture.*;
@@ -82,5 +83,38 @@ public class Material {
         GL20.glEnableVertexAttribArray(1);
         GL20.glVertexAttribPointer(2, 3, GL11.GL_FLOAT, false, 8 * Float.BYTES, 5 * Float.BYTES);
         GL20.glEnableVertexAttribArray(2);
+    }
+    public void setUniformValue(String uniform, float v){
+        GL20.glUniform1f(GL20.glGetUniformLocation(shaderProgram, uniform), v);
+    }
+    public void setUniformValue(String uniform, float v, float v1){
+        GL20.glUniform2f(GL20.glGetUniformLocation(shaderProgram, uniform), v, v1);
+    }
+    public void setUniformValue(String uniform, float v, float v1, float v2){
+        GL20.glUniform3f(GL20.glGetUniformLocation(shaderProgram, uniform), v1, v1, v2);
+    }
+    public void setUniformValue(String uniform, float v, float v1, float v2, float v3){
+        GL20.glUniform4f(GL20.glGetUniformLocation(shaderProgram, uniform), v, v1, v2, v3);
+    }
+    public void setUniformValue(String uniform, int v){
+        GL20.glUniform1i(GL20.glGetUniformLocation(shaderProgram, uniform), v);
+    }
+    public void setUniformValue(String uniform, int v, int v1){
+        GL20.glUniform2i(GL20.glGetUniformLocation(shaderProgram, uniform), v, v1);
+    }
+    public void setUniformValue(String uniform, int v, int v1, int v2){
+        GL20.glUniform3i(GL20.glGetUniformLocation(shaderProgram, uniform), v, v1, v2);
+    }
+    public void setUniformValue(String uniform, int v, int v1, int v2, int v3){
+        GL20.glUniform4i(GL20.glGetUniformLocation(shaderProgram, uniform), v, v1, v2, v3);
+    }
+    public void setUniformValue(String uniform, Matrix2f m){
+        GL20.glUniformMatrix2fv(GL20.glGetUniformLocation(shaderProgram, uniform), false, m.get(new float[4]));
+    }
+    public void setUniformValue(String uniform, Matrix3f m){
+        GL20.glUniformMatrix3fv(GL20.glGetUniformLocation(shaderProgram, uniform), false, m.get(new float[9]));
+    }
+    public void setUniformValue(String uniform, Matrix4f m){
+        GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(shaderProgram, uniform), false, m.get(new float[16]));
     }
 }

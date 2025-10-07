@@ -49,7 +49,6 @@ public class Airdrop {
         scene.appendObject(obj);
         scene.appendObject(brick);
         scene.processObjects();
-        mat2.setUniformValue("camPos", camera.position.x, camera.position.y, camera.position.z);
         ambientLight.appendObject(obj);
         ambientLight.appendObject(brick);
         ambientLight.applyLighting();
@@ -60,6 +59,7 @@ public class Airdrop {
         boolean run = true;
         while(run){
             scene.setClearColor(0.3f, 0.5f, 0.7f);
+            mat2.setUniformValue("camPos", camera.position.x, camera.position.y, camera.position.z);
             scene.render();
             engine.processDefault();
             if(engine.checkKey(GLFW.GLFW_KEY_ESCAPE, GLFW.GLFW_PRESS) || GLFW.glfwWindowShouldClose(engine.getWindow())){

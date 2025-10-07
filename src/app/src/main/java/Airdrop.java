@@ -49,6 +49,7 @@ public class Airdrop {
         scene.appendObject(obj);
         scene.appendObject(brick);
         scene.processObjects();
+        mat2.setUniformValue("camPos", camera.position.x, camera.position.y, camera.position.z);
         ambientLight.appendObject(obj);
         ambientLight.appendObject(brick);
         ambientLight.applyLighting();

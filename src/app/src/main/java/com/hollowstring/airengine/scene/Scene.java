@@ -83,7 +83,7 @@ public class Scene {
             GL20.glUniformMatrix4fv(cameraTransformLocation, false, cameraTranslation.get(new float[16]));
             GL20.glUniformMatrix4fv(projectionLocation, false, activeCamera.projection.get(new float[16]));
             GL30.glBindVertexArray(objectPoll[i].getVAO());
-            GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, objectPoll[i].getMesh().length / 5);
+            GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, objectPoll[i].getMesh().length / 8);
         }
     }
 

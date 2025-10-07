@@ -3,7 +3,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.hollowstring.airengine.*;
 import com.hollowstring.airengine.camera.Camera;
-import com.hollowstring.airengine.lightSource.AmbientLight;
+import com.hollowstring.airengine.lightSource.*;
 import com.hollowstring.airengine.scene.*;
 import com.hollowstring.airengine.texture.*;
 import com.hollowstring.airengine.object.Object;
@@ -24,6 +24,7 @@ public class Airdrop {
 
         camera.setPosition(-3.0f, 3.0f, 0.0f);
         AmbientLight ambientLight = new AmbientLight(0.3f, 0.5f, 0.7f, 1.0f);
+        PointLight pointLight = new PointLight(1.0f, 1.0f, 1.0f, 1.0f);
 
         Texture grassTexture = new Texture(GL11.GL_REPEAT, GL11.GL_LINEAR_MIPMAP_LINEAR, GL11.GL_LINEAR);
         grassTexture.loadTexture("others/grass.jpg");
@@ -43,6 +44,7 @@ public class Airdrop {
         obj.setSize(64.0f, 64.0f, 64.0f);
         Object brick = new Object(Mesh.Cube, mat2);
         brick.setPosition(0.0f,1.0f, 0.0f);
+        pointLight.setPosition(0.0f, 2.0f, 0.0f);
         
         scene.appendObject(obj);
         scene.appendObject(brick);
@@ -50,6 +52,9 @@ public class Airdrop {
         ambientLight.appendObject(obj);
         ambientLight.appendObject(brick);
         ambientLight.applyLighting();
+        pointLight.appendObject(obj);
+        pointLight.appendObject(brick);
+        pointLight.applyLighting();
 
         boolean run = true;
         while(run){
